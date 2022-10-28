@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Box, Button } from "@mui/material";
 
-import { HeroContainer } from "../../../Styles/HeroSection/HeroSection.styles";
+import { HeroContainer } from "../../../Styles/HomePageSyles/HeroSection.styles";
 
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
@@ -53,9 +53,9 @@ const HeroSection = () => {
               justifyContent: { xs: "space-between", sm: "flex-start" },
             }}
           >
-            <Button variant='contained' sx={{ mr: 2 }}>
+            {/* <Button variant='contained' sx={{ mr: 2 }}>
               Sell Now
-            </Button>
+            </Button> */}
             <Typography color='primary' component='a' href='#'>
               How it works ?
             </Typography>

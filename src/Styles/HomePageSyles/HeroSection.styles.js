@@ -4,6 +4,7 @@ import { styled } from "@mui/material/styles";
 import HeroImg from "../../Images/HeroImg.jpg";
 
 export const HeroContainer = styled(Box)(({ theme }) => ({
+  marginBottom: "36px",
   [theme.breakpoints.up("md")]: {
     height: "464px",
     background: `linear-gradient(to left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%), url(${HeroImg})`,
