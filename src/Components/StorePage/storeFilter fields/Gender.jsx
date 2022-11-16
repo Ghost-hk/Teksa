@@ -14,8 +14,8 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 const Gender = () => {
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState({
-    men: false,
-    women: false,
+    Male: false,
+    Female: false,
   });
 
   const handleClick = () => {
@@ -37,14 +37,14 @@ const Gender = () => {
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <FormControlLabel
               control={<Checkbox />}
-              name='men'
-              label='Men'
+              name='Male'
+              label='Male'
               onChange={handleChange}
             />
             <FormControlLabel
               control={<Checkbox />}
-              name='women'
-              label='Women'
+              name='Female'
+              label='Female'
               onChange={handleChange}
             />
           </Box>

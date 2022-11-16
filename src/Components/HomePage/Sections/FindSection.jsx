@@ -1,14 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Box, Grid, Typography, Button } from "@mui/material";
 import { Img, Info } from "../../../Styles/HomePageSyles/FindSection.styles";
 import FindImage from "../../../Images/FindImage.jpg";
 
 import { useTheme } from "@mui/material/styles";
-
 import { useMediaQuery } from "@mui/material";
 
 const FindSection = () => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md")); // returns true if on mobile/tablet and false on desktop
   const elevation = matches ? 4 : 0;
@@ -52,7 +53,9 @@ const FindSection = () => {
               find the item and the seller for you.
             </Typography>
             <Box>
-              <Button variant='outlined'>Shop Now</Button>
+              <Button variant='outlined' onClick={() => navigate("/store")}>
+                Shop Now
+              </Button>
             </Box>
           </Box>
         </Info>

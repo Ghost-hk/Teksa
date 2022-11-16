@@ -25,6 +25,7 @@ const categoriesArr = [
 const Category = () => {
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState({
+    Hoodie: false,
     Sweater: false,
     Shirt: false,
     Jeans: false,

@@ -1,9 +1,16 @@
-import { Box } from "@mui/material";
 import React from "react";
+import Item from "./Item";
+import { Grid } from "@mui/material";
+
+import data from "../../Data";
 
 const Store = () => {
   return (
-    <Box sx={{ width: "100%", height: "50vh", bgcolor: "red" }}>Store</Box>
+    <Grid container spacing={4}>
+      {data.map((item) => (
+        <Item item={item} key={item._id} />
+      ))}
+    </Grid>
   );
 };
 

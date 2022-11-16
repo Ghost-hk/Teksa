@@ -1,4 +1,7 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+
+import { logout } from "../../Store/Auth/authSlice";
 
 import {
   Box,
@@ -14,8 +17,8 @@ import {
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import AddIcon from "@mui/icons-material/Add";
-
 const UserInfo = ({ user }) => {
+  const dispatch = useDispatch();
   function stringToColor(string) {
     let hash = 0;
     let i;
@@ -40,18 +43,31 @@ const UserInfo = ({ user }) => {
       sx: {
         bgcolor: stringToColor(name),
       },
-      children: `${name.split(" ")[0][0]}`,
+      children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
     };
   }
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
+  const name =
+    user.firstName.charAt(0).toUpperCase() +
+    user.firstName.slice(1) +
+    " " +
+    user.lastName.charAt(0).toUpperCase() +
+    user.lastName.slice(1);
+
   return (
     <Box
       sx={{
@@ -62,7 +78,7 @@ const UserInfo = ({ user }) => {
       }}
     >
       <Typography sx={{ pr: 2 }} color='text.main'>
-        {user.name}
+        {name}
       </Typography>
       <IconButton
         onClick={handleClick}
@@ -73,9 +89,9 @@ const UserInfo = ({ user }) => {
         aria-expanded={open ? "true" : undefined}
       >
         {user.photo ? (
-          <Avatar src={user.photo} alt={user.name} />
+          <Avatar src={user.photo} alt={name} />
         ) : (
-          <Avatar sx={{ bgcolor: "primary" }} {...stringAvatar(user.name)} />
+          <Avatar sx={{ bgcolor: "primary" }} {...stringAvatar(name)} />
         )}
       </IconButton>
 
@@ -120,7 +136,7 @@ const UserInfo = ({ user }) => {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={logoutHandler}>
           <ListItemIcon>
             <Logout fontSize='small' />
           </ListItemIcon>

@@ -28,6 +28,11 @@ const theme = createTheme({
       main: colors.text,
       light: "#515257",
     },
+    google: {
+      main: "#4281E5",
+      // dark: "#4281E5",
+      // light: "#515257",
+    },
   },
 });
 
