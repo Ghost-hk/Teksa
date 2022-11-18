@@ -11,7 +11,15 @@ const AuthBtns = () => {
   const [isSingIn, setIsSingIn] = useState(null);
 
   return (
-    <Box sx={{ display: "flex", flex: 2, justifyContent: "end" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flex: 2,
+        justifyContent: "end",
+        flexDirection: { xs: "column", md: "row" },
+        width: { xs: "150px", md: "auto" },
+      }}
+    >
       <Modul open={open} setOpen={setOpen}>
         {isSingIn ? (
           <SingInForm setIsSingIn={setIsSingIn} />
@@ -22,7 +30,7 @@ const AuthBtns = () => {
 
       <Button
         variant='outlined'
-        sx={{ mr: 1 }}
+        sx={{ mr: { xs: 0, md: 1 }, mb: { xs: 1, md: 0 } }}
         onClick={(e) => {
           setOpen(true);
           setIsSingIn(false);

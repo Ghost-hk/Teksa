@@ -14,7 +14,7 @@ import {
   IconButton,
 } from "@mui/material";
 
-import Settings from "@mui/icons-material/Settings";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Logout from "@mui/icons-material/Logout";
 import AddIcon from "@mui/icons-material/Add";
 const UserInfo = ({ user }) => {
@@ -132,9 +132,9 @@ const UserInfo = ({ user }) => {
       >
         <MenuItem>
           <ListItemIcon>
-            <Settings fontSize='small' />
+            <AccountCircleIcon fontSize='small' />
           </ListItemIcon>
-          Settings
+          Profile
         </MenuItem>
         <MenuItem onClick={logoutHandler}>
           <ListItemIcon>

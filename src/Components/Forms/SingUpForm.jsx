@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 
 import { reset } from "../../Store/Auth/authSlice";
 import { register } from "../../Store/Auth/ThunkFunctions";
 
-import { Box, Button, Divider, Typography } from "@mui/material";
+import { Alert, Box, Button, Divider, Typography } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 
 import Input from "./Input";
 const SingUpForm = ({ setIsSingIn }) => {
   const dispatch = useDispatch();
-  const { user, isLoading, isSuccsess, isError, message } = useSelector(
-    (state) => state.auth
-  );
+  const { isError, message } = useSelector((state) => state.auth);
   const [formValues, setFormValues] = useState({
     firstName: "",
     lastName: "",
@@ -21,6 +18,8 @@ const SingUpForm = ({ setIsSingIn }) => {
     password: "",
     confirmPassword: "",
   });
+
+  const [localErr, setLocalErr] = useState({});
 
   const handelChange = (e) => {
     e.preventDefault();
@@ -30,33 +29,86 @@ const SingUpForm = ({ setIsSingIn }) => {
     }));
   };
 
+  useEffect(() => {
+    if (formValues.password === formValues.confirmPassword) {
+      setLocalErr({
+        state: false,
+        fields: [],
+        message: "",
+      });
+    }
+
+    if (isError && message.message === "Email already used") {
+      setLocalErr({
+        state: true,
+        fields: ["email"],
+        message: "Email already used",
+      });
+    }
+
+    if (isError && message.message === "Please enter all required fields") {
+      setLocalErr((p) => ({
+        ...p,
+        state: true,
+        fields: [
+          "password",
+          "confirmPassword",
+          "email",
+          "firstName",
+          "lastName",
+        ],
+        message: "Please enter all required fields",
+      }));
+    }
+
+    if (formValues.password !== formValues.confirmPassword) {
+      setLocalErr({
+        state: true,
+        fields: ["password", "confirmPassword"],
+        message: "Passwords do not match",
+      });
+    }
+    if (formValues.password.length < 8) {
+      setLocalErr({
+        state: true,
+        fields: ["password"],
+        message: "Your password must be at least 8 characters",
+      });
+    }
+    if (formValues.password.search(/[a-z]/i) < 0) {
+      setLocalErr({
+        state: true,
+        fields: ["password"],
+        message: "Your password must contain at least one letter",
+      });
+    }
+    if (formValues.password.search(/[0-9]/) < 0) {
+      setLocalErr({
+        state: true,
+        fields: ["password"],
+        message: "Your password must contain at least one digit",
+      });
+    }
+  }, [isError, formValues, message]);
+
   const handelSubmit = (e) => {
     e.preventDefault();
-    if (formValues.password !== formValues.confirmPassword) {
-      toast.error("Passwords do not match");
-    } else {
-      const userData = {
-        firstName: formValues.firstName,
-        lastName: formValues.lastName,
-        email: formValues.email,
-        password: formValues.password,
-      };
 
+    const userData = {
+      firstName: formValues.firstName,
+      lastName: formValues.lastName,
+      email: formValues.email,
+      password: formValues.password,
+    };
+
+    try {
       dispatch(register(userData));
+    } catch (e) {
+      return e;
     }
+    dispatch(reset());
   };
 
-  useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
-
-    if (isSuccsess) {
-      toast.success("Registration done succesfully.");
-    }
-
-    dispatch(reset());
-  }, [user, isLoading, isSuccsess, isError, message, dispatch]);
   return (
     <>
       <Box
@@ -75,6 +127,11 @@ const SingUpForm = ({ setIsSingIn }) => {
         >
           Sing Up
         </Typography>
+        {isError && localErr.state && (
+          <Alert sx={{ mb: 2 }} severity='error'>
+            {localErr.message}
+          </Alert>
+        )}
         <form onSubmit={handelSubmit}>
           <Box sx={{ display: "flex" }}>
             <Box sx={{ flex: 1, mr: 2 }}>
@@ -85,6 +142,11 @@ const SingUpForm = ({ setIsSingIn }) => {
                 fullWidth={true}
                 value={formValues.firstName}
                 onChange={handelChange}
+                err={
+                  localErr.state && localErr.fields.includes("firstName")
+                    ? true
+                    : false
+                }
               />
             </Box>
             <Box sx={{ flex: 1 }}>
@@ -95,6 +157,11 @@ const SingUpForm = ({ setIsSingIn }) => {
                 fullWidth={true}
                 value={formValues.lastName}
                 onChange={handelChange}
+                err={
+                  localErr.state && localErr.fields.includes("lastName")
+                    ? true
+                    : false
+                }
               />
             </Box>
           </Box>
@@ -105,6 +172,9 @@ const SingUpForm = ({ setIsSingIn }) => {
             fullWidth={true}
             value={formValues.email}
             onChange={handelChange}
+            err={
+              localErr.state && localErr.fields.includes("email") ? true : false
+            }
           />
           <Input
             label='Password'
@@ -113,6 +183,11 @@ const SingUpForm = ({ setIsSingIn }) => {
             value={formValues.password}
             fullWidth={true}
             onChange={handelChange}
+            err={
+              localErr.state && localErr.fields.includes("password")
+                ? true
+                : false
+            }
           />
           <Input
             label='Confirme Password'
@@ -121,6 +196,11 @@ const SingUpForm = ({ setIsSingIn }) => {
             value={formValues.confirmPassword}
             fullWidth={true}
             onChange={handelChange}
+            err={
+              localErr.state && localErr.fields.includes("confirmPassword")
+                ? true
+                : false
+            }
           />
 
           <Box

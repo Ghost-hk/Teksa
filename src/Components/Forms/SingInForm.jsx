@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { reset } from "../../Store/Auth/authSlice";
 import { login } from "../../Store/Auth/ThunkFunctions";
 
-import { toast } from "react-toastify";
-import { Box, Button, Divider, Typography } from "@mui/material";
+import { Alert, Box, Button, Divider, Typography } from "@mui/material";
 
 import GoogleIcon from "@mui/icons-material/Google";
 
@@ -14,9 +13,7 @@ import Input from "./Input";
 
 const SingInForm = ({ setIsSingIn }) => {
   const dispatch = useDispatch();
-  const { user, isLoading, isSuccsess, isError, message } = useSelector(
-    (state) => state.auth
-  );
+  const { isError, message } = useSelector((state) => state.auth);
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
@@ -29,26 +26,20 @@ const SingInForm = ({ setIsSingIn }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+
+    dispatch(reset());
+
     const userData = {
       email: formValues.email,
       password: formValues.password,
     };
 
-    dispatch(login(userData));
+    try {
+      dispatch(login(userData));
+      dispatch(reset());
+    } catch (e) {}
   };
 
-  useEffect(() => {
-    dispatch(reset());
-    if (isError) {
-      toast.error(message);
-    }
-
-    if (isSuccsess) {
-      toast.success("Loged in succesfully.");
-    }
-    dispatch(reset());
-    // if(user)
-  }, [user, isLoading, isSuccsess, isError, message, dispatch]);
   return (
     <>
       <Box
@@ -67,6 +58,11 @@ const SingInForm = ({ setIsSingIn }) => {
         >
           Sing In
         </Typography>
+        {isError && (
+          <Alert sx={{ mb: 2 }} severity='error'>
+            {message.message}
+          </Alert>
+        )}
         <form onSubmit={submitHandler}>
           <Input
             label='Email'
@@ -75,6 +71,7 @@ const SingInForm = ({ setIsSingIn }) => {
             value={formValues.email}
             fullWidth={true}
             onChange={handelChange}
+            err={isError}
           />
           <Input
             label='Password'
@@ -83,6 +80,7 @@ const SingInForm = ({ setIsSingIn }) => {
             value={formValues.password}
             fullWidth={true}
             onChange={handelChange}
+            err={isError}
           />
 
           <Box

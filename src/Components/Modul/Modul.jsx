@@ -7,7 +7,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ModulBackdrop, ModulContentWraper } from "./Modul.styles";
 import { Box, IconButton, Paper } from "@mui/material";
 
+import { useDispatch } from "react-redux";
+import { reset } from "../../Store/Auth/authSlice";
+
 const Modul = (props) => {
+  const dispatch = useDispatch();
   return (
     <AnimatePresence>
       {props.open && (
@@ -19,6 +23,7 @@ const Modul = (props) => {
             exit={{ opacity: 0 }}
             onClick={(e) => {
               props.setOpen(false);
+              dispatch(reset());
             }}
           ></ModulBackdrop>
           <ModulContentWraper
@@ -30,8 +35,8 @@ const Modul = (props) => {
             <Paper
               sx={{
                 width: "580px",
-                px: 4,
-                py: 4,
+                px: { xs: 2, md: 4 },
+                py: { xs: 2, md: 4 },
                 position: "relative",
                 zIndex: 10000,
               }}
@@ -40,6 +45,7 @@ const Modul = (props) => {
                 sx={{ position: "absolute", top: "10px", right: "10px" }}
                 onClick={(e) => {
                   props.setOpen(false);
+                  dispatch(reset());
                 }}
               >
                 <CloseIcon size='large' color='primary' />

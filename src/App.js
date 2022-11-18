@@ -1,8 +1,6 @@
 import "../node_modules/slick-carousel/slick/slick.css";
 import "../node_modules/slick-carousel/slick/slick-theme.css";
-import "react-toastify/dist/ReactToastify.css";
 
-import { ToastContainer } from "react-toastify";
 import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./Components/Navbar/Navbar";
@@ -21,7 +19,6 @@ const App = () => {
         {/* <StorePage /> */}
         {/*  */}
       </Routes>
-      <ToastContainer />
     </>
   );
 };

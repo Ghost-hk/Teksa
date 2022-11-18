@@ -11,7 +11,7 @@ import {
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-const Input = ({ label, type, name, onChange, value, fullWidth }) => {
+const Input = ({ label, type, name, onChange, value, fullWidth, err }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
@@ -23,16 +23,14 @@ const Input = ({ label, type, name, onChange, value, fullWidth }) => {
   };
   return (
     <FormControl variant='outlined' fullWidth={fullWidth} sx={{ mb: 2 }}>
-      <InputLabel>{label}</InputLabel>
+      <InputLabel error={err}>{label}</InputLabel>
       <OutlinedInput
         label={label}
         name={name}
         onChange={onChange}
         value={value}
-        type={
-          // name === "password" || "confirmPassword"
-          type === "password" ? (showPassword ? "text" : "password") : type
-        }
+        error={err}
+        type={type === "password" ? (showPassword ? "text" : "password") : type}
         endAdornment={
           type === "password" ? (
             <InputAdornment position='end'>
