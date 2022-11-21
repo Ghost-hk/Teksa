@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import HomePage from "./Components/HomePage/HomePage";
 import StorePage from "./Components/StorePage/StorePage";
+import AddPost from "./Components/Forms/AddPost";
 
 const App = () => {
   return (
@@ -14,10 +15,8 @@ const App = () => {
         <Route path='/' element={<Navbar />}>
           <Route path='/' element={<HomePage />} />
           <Route path='store' element={<StorePage />} />
+          <Route path='addpost' element={<AddPost />} />
         </Route>
-
-        {/* <StorePage /> */}
-        {/*  */}
       </Routes>
     </>
   );

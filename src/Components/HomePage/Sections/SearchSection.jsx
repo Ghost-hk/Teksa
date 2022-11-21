@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Box, Grid, Typography, Button } from "@mui/material";
 import { Img, Info } from "../../../Styles/HomePageSyles/FindSection.styles";
@@ -9,6 +10,7 @@ import { useTheme } from "@mui/material/styles";
 
 import { useMediaQuery } from "@mui/material";
 const SearchSection = () => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md")); // returns true if on mobile/tablet and false on desktop
   const elevation = matches ? 4 : 0;
@@ -49,7 +51,14 @@ const SearchSection = () => {
               planet and the space in your wardrobe. Let's get thrifty.
             </Typography>
             <Box>
-              <Button variant='outlined'>Sell Now</Button>
+              <Button
+                variant='outlined'
+                onClick={() => {
+                  navigate("/addpost");
+                }}
+              >
+                Sell Now
+              </Button>
             </Box>
           </Box>
         </Info>

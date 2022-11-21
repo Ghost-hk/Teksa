@@ -10,15 +10,11 @@ import {
 } from "@mui/material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import { conditions } from "../../../FieldsObj/objects";
 
 const Condition = () => {
   const [open, setOpen] = useState(false);
-  const [values, setValues] = useState({
-    new: false,
-    likeNew: false,
-    used: false,
-    old: false,
-  });
+  const [values, setValues] = useState(conditions);
 
   const handleClick = () => {
     setOpen(!open);

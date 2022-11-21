@@ -11,29 +11,12 @@ import {
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 
-const brandsArr = [
-  "Defacto",
-  "Nike",
-  "Adidas",
-  `Levi's`,
-  "Zara",
-  "Hugo Boss",
-  "Lacoste",
-  "GAP",
-];
-
+import { brands } from "../../../FieldsObj/objects";
 const Brand = () => {
   const [open, setOpen] = useState(false);
-  const [values, setValues] = useState({
-    Defacto: false,
-    Nike: false,
-    Adidas: false,
-    Zara: false,
-    Lacoste: false,
-    GAP: false,
-    "Levi's": false,
-    "Hugo Boss": false,
-  });
+  const [values, setValues] = useState(brands);
+
+  const brandsArr = Object.keys(brands).map((key) => key);
 
   const handleClick = () => {
     setOpen(!open);

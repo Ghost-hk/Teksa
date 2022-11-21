@@ -11,12 +11,11 @@ import {
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 
+import { genders } from "../../../FieldsObj/objects";
+
 const Gender = () => {
   const [open, setOpen] = useState(false);
-  const [values, setValues] = useState({
-    Male: false,
-    Female: false,
-  });
+  const [values, setValues] = useState(genders);
 
   const handleClick = () => {
     setOpen(!open);

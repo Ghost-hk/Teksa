@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
-  Drawer,
+  SwipeableDrawer,
   IconButton,
   Collapse,
   TextField,
@@ -63,9 +63,14 @@ const NavbarMobile = () => {
         </IconButton>
       </NavbarContainer>
 
-      <Drawer anchor='left' open={state} onClose={toggleDrawer(false)}>
+      <SwipeableDrawer
+        anchor='left'
+        open={state}
+        onOpen={() => setState(true)}
+        onClose={() => setState(false)}
+      >
         <NavbarMobileDrawer toggleDrawer={toggleDrawer} />
-      </Drawer>
+      </SwipeableDrawer>
 
       <Collapse in={open} timeout='auto' sx={{ px: 1 }}>
         <TextField

@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import AuthBtns from "./AuthBtns";
 
@@ -26,6 +27,7 @@ const NavbarMobileDrawer = ({ toggleDrawer }) => {
   const { user } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function stringToColor(string) {
     let hash = 0;
@@ -102,7 +104,11 @@ const NavbarMobileDrawer = ({ toggleDrawer }) => {
               <Text primary='Profile' />
             </ListItem>
 
-            <ListItem>
+            <ListItem
+              onClick={() => {
+                navigate("/addpost");
+              }}
+            >
               <ListItemIcon>
                 <AddIcon />
               </ListItemIcon>

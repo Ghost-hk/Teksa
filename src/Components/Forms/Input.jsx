@@ -11,7 +11,16 @@ import {
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-const Input = ({ label, type, name, onChange, value, fullWidth, err }) => {
+const Input = ({
+  label,
+  type,
+  name,
+  onChange,
+  value,
+  fullWidth,
+  err,
+  multiline,
+}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
@@ -30,6 +39,7 @@ const Input = ({ label, type, name, onChange, value, fullWidth, err }) => {
         onChange={onChange}
         value={value}
         error={err}
+        multiline={multiline}
         type={type === "password" ? (showPassword ? "text" : "password") : type}
         endAdornment={
           type === "password" ? (

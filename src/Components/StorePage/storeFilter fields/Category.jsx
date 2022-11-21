@@ -11,30 +11,13 @@ import {
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 
-const categoriesArr = [
-  "Sweater",
-  "Shirt",
-  "Jeans",
-  "Cap",
-  "Shorts",
-  "Jacket",
-  "Vest",
-  "T-shirt",
-];
+import { categorys } from "../../../FieldsObj/objects";
+
+const categoriesArr = Object.keys(categorys).map((key) => key);
 
 const Category = () => {
   const [open, setOpen] = useState(false);
-  const [values, setValues] = useState({
-    Hoodie: false,
-    Sweater: false,
-    Shirt: false,
-    Jeans: false,
-    Cap: false,
-    Shorts: false,
-    Jacket: false,
-    Vest: false,
-    "T-shirt": false,
-  });
+  const [values, setValues] = useState(categorys);
 
   const handleClick = () => {
     setOpen(!open);

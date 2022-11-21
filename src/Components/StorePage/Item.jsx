@@ -5,7 +5,7 @@ import { Box, Grid, Paper } from "@mui/material";
 const Item = ({ item }) => {
   return (
     <Grid item lg={3} xs={12} sm={6} md={6}>
-      <Paper elevation={4}>
+      <Paper elevation={4} sx={{ "&:hover": { cursor: "pointer" } }}>
         <Img img={item.photos[0]} />
         <Box sx={{ p: 1, pt: 2 }}>
           <Box

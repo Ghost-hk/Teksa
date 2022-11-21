@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { logout } from "../../Store/Auth/authSlice";
@@ -19,6 +20,7 @@ import Logout from "@mui/icons-material/Logout";
 import AddIcon from "@mui/icons-material/Add";
 const UserInfo = ({ user }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   function stringToColor(string) {
     let hash = 0;
     let i;
@@ -143,7 +145,11 @@ const UserInfo = ({ user }) => {
           Logout
         </MenuItem>
         <Divider />
-        <MenuItem>
+        <MenuItem
+          onClick={() => {
+            navigate("/addpost");
+          }}
+        >
           <ListItemIcon>
             <AddIcon fontSize='small' />
           </ListItemIcon>
