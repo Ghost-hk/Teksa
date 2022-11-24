@@ -23,9 +23,17 @@ const login = async (userData) => {
   return user;
 };
 
+const getProfileData = async (userId) => {
+  const response = await axios.post(`${API_URL}/getprofileinfo`, userId);
+
+  const profile = response.data;
+  return profile;
+};
+
 const authAPI = {
   register,
   login,
+  getProfileData,
 };
 
 export default authAPI;

@@ -6,14 +6,7 @@ import { create } from "../../Store/Posts/ThunkFunctions";
 import CustomInput from "./Input";
 import InputSelect from "./InputSelect";
 
-import {
-  Box,
-  Button,
-  Paper,
-  Typography,
-  FormLabel,
-  Alert,
-} from "@mui/material";
+import { Box, Button, Typography, FormLabel, Alert } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 

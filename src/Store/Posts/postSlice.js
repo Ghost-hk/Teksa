@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { create } from "./ThunkFunctions";
+import { create, filter, deletePost } from "./ThunkFunctions";
 
 const initialState = {
   createdPost: "",
+  filtredPosts: [],
   isSuccsess: false,
   isLoading: false,
   isError: false,
@@ -28,6 +29,39 @@ export const postSlice = createSlice({
         state.isError = true;
         state.message = payload || "";
         state.createdPost = null;
+      });
+
+    builder
+      .addCase(filter.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(filter.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.isSuccsess = true;
+        state.filtredPosts = payload;
+      })
+      .addCase(filter.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = payload || "";
+        state.filtredPosts = [];
+      });
+
+    builder
+      .addCase(deletePost.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deletePost.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.isSuccsess = true;
+        state.filtredPosts = state.filtredPosts.filter(
+          (post) => post._id !== payload
+        );
+      })
+      .addCase(deletePost.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = payload || "";
       });
   },
 });

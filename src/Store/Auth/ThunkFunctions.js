@@ -22,3 +22,16 @@ export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
     return thunkAPI.rejectWithValue(message);
   }
 });
+
+export const getProfileData = createAsyncThunk(
+  "auth/profileData",
+  async (userId, thunkAPI) => {
+    try {
+      return await authAPI.getProfileData(userId);
+    } catch (error) {
+      const message = error.response.data || error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
