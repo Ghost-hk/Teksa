@@ -6,8 +6,9 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import HomePage from "./Components/HomePage/HomePage";
 import StorePage from "./Components/StorePage/StorePage";
-import AddPost from "./Components/Forms/AddPost";
 import ProfilePage from "./Components/ProfilePage/ProfilePage";
+import AddPost from "./Components/AddPostPage/AddPost";
+import EditPost from "./Components/EditPostPage/EditPost";
 
 const App = () => {
   return (
@@ -17,7 +18,10 @@ const App = () => {
           <Route path='/' element={<HomePage />} />
           <Route path='store' element={<StorePage />} />
           <Route path='profile' element={<ProfilePage />} />
-          <Route path='addpost' element={<AddPost />} />
+          <Route path='post'>
+            <Route path='addpost' element={<AddPost />} />
+            <Route path='edit/:id' element={<EditPost />} />
+          </Route>
         </Route>
       </Routes>
     </>

@@ -97,7 +97,12 @@ const NavbarMobileDrawer = ({ toggleDrawer }) => {
               <Text primary={name} />
             </ListItem>
 
-            <ListItem>
+            <ListItem
+              onClick={() => {
+                toggleDrawer(false);
+                navigate("/profile");
+              }}
+            >
               <ListItemIcon onClick={toggleDrawer(false)}>
                 <AccountCircleIcon />
               </ListItemIcon>

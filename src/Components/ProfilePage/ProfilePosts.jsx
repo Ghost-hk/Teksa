@@ -1,16 +1,21 @@
 import React, { useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import { filter, deletePost } from "../../Store/Posts/ThunkFunctions";
 
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
-
 import { TypoContainer, BgImage } from "./styles";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 const ProfilePosts = () => {
   const ProfilePosts = useSelector((state) => state.posts.filtredPosts);
   const { profile } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (profile) {
@@ -22,6 +27,11 @@ const ProfilePosts = () => {
   const handelDelete = (e, id) => {
     e.preventDefault();
     dispatch(deletePost(id));
+  };
+  const handelEdit = (e, id) => {
+    e.preventDefault();
+    navigate(`/post/edit/${id}`);
+    // dispatch(...(id));
   };
   return (
     <Paper
@@ -140,8 +150,18 @@ const ProfilePosts = () => {
                 justifyContent: "center",
               }}
             >
-              <Button onClick={(e) => handelDelete(e, post._id)}>Delete</Button>
-              <Button>Edite</Button>
+              <Button
+                endIcon={<DeleteIcon />}
+                onClick={(e) => handelDelete(e, post._id)}
+              >
+                Delete
+              </Button>
+              <Button
+                endIcon={<EditIcon />}
+                onClick={(e) => handelEdit(e, post._id)}
+              >
+                Edite
+              </Button>
             </Box>
           </Grid>
         </Grid>

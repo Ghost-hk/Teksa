@@ -13,6 +13,19 @@ export const create = createAsyncThunk(
   }
 );
 
+export const update = createAsyncThunk(
+  "posts/updatePost",
+  async (post, thunkAPI) => {
+    try {
+      console.log("from ThunkFunctions", post.id);
+      return await postAPI.update(post, post.id);
+    } catch (error) {
+      const message = error.response.data || error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const filter = createAsyncThunk(
   "posts/filterPosts",
   async (filterObj, thunkAPI) => {

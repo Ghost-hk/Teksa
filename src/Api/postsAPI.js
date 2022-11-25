@@ -19,6 +19,24 @@ const create = async (postDATA) => {
   return post;
 };
 
+const update = async (postDATA, id) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user.token || "";
+  console.log(`${API_URL}/edit/${id}`, id);
+
+  const response = await axios.patch(`${API_URL}/edit/${id}`, postDATA, {
+    headers: {
+      authorization: `Bearer ${token}`,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
+  const post = response.data;
+
+  return post;
+};
+
 const filter = async (filterObj) => {
   const response = await axios.post(`${API_URL}/filter`, filterObj);
   const filtredPosts = response.data;
@@ -30,13 +48,6 @@ const deletePost = async (id) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const token = user.token || "";
   try {
-    // const response = await axios.delete(`${API_URL}/delete/${id}`, id, {
-    //   headers: {
-    //     authorization: `Bearer ${token}`,
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //   },
-    // });
     const response = await axios.delete(`${API_URL}/delete/${id}`, {
       headers: {
         authorization: `Bearer ${token}`,
@@ -54,6 +65,7 @@ const postsAPI = {
   create,
   filter,
   deletePost,
+  update,
 };
 
 export default postsAPI;

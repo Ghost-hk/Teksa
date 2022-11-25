@@ -132,7 +132,11 @@ const UserInfo = ({ user }) => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>
+        <MenuItem
+          onClick={() => {
+            navigate("/profile");
+          }}
+        >
           <ListItemIcon>
             <AccountCircleIcon fontSize='small' />
           </ListItemIcon>
