@@ -20,6 +20,7 @@ const Input = ({
   fullWidth,
   err,
   multiline,
+  style,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -31,7 +32,11 @@ const Input = ({
     event.preventDefault();
   };
   return (
-    <FormControl variant='outlined' fullWidth={fullWidth} sx={{ mb: 2 }}>
+    <FormControl
+      variant='outlined'
+      fullWidth={fullWidth}
+      sx={{ ...style, mb: 2 }}
+    >
       <InputLabel error={err}>{label}</InputLabel>
       <OutlinedInput
         label={label}

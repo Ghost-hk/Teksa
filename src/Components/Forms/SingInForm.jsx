@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { setSnackBarInfo } from "../../Store/SnackBar/SnackBarSlice";
+
 import { Link } from "react-router-dom";
 
 import { reset } from "../../Store/Auth/authSlice";
@@ -36,6 +38,14 @@ const SingInForm = ({ setIsSingIn }) => {
 
     try {
       dispatch(login(userData));
+      dispatch(
+        setSnackBarInfo({
+          open: true,
+          message: `Welcome back`,
+          state: "info",
+        })
+      );
+
       dispatch(reset());
     } catch (e) {}
   };
@@ -108,6 +118,7 @@ const SingInForm = ({ setIsSingIn }) => {
           sx={{ color: "#ffffff" }}
           color='google'
           fullWidth={true}
+          disabled
         >
           Sing In With Google
         </Button>

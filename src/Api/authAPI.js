@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/auth";
+const API_URL = "https://teksa-api.onrender.com/api/auth";
 const register = async (userData) => {
   const response = await axios.post(`${API_URL}/register`, userData);
 
@@ -30,10 +30,50 @@ const getProfileData = async (userId) => {
   return profile;
 };
 
+const getUserInfo = async (userId) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user.token || "";
+
+  const response = await axios.get(`${API_URL}/getuserdata/${userId}`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
+  const userInfo = response.data;
+  return userInfo;
+};
+
+const updateUser = async (userData) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user.token || "";
+
+  const userId = userData._id;
+
+  const response = await axios.patch(
+    `${API_URL}/updateuserdata/${userId}`,
+    userData,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const userInfo = response.data;
+  return userInfo;
+};
+
 const authAPI = {
   register,
   login,
   getProfileData,
+  getUserInfo,
+  updateUser,
 };
 
 export default authAPI;

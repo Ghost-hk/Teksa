@@ -54,7 +54,7 @@ const SearchSection = () => {
               <Button
                 variant='outlined'
                 onClick={() => {
-                  navigate("/addpost");
+                  navigate("/post/addpost");
                 }}
               >
                 Sell Now

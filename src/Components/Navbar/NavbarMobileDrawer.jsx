@@ -6,6 +6,7 @@ import AuthBtns from "./AuthBtns";
 import { useDispatch } from "react-redux";
 
 import { logout } from "../../Store/Auth/authSlice";
+import { setSnackBarInfo } from "../../Store/SnackBar/SnackBarSlice";
 
 import {
   List,
@@ -122,6 +123,13 @@ const NavbarMobileDrawer = ({ toggleDrawer }) => {
             <ListItem
               onClick={() => {
                 toggleDrawer(false);
+                dispatch(
+                  setSnackBarInfo({
+                    open: true,
+                    message: "Logged out, see you soon.",
+                    state: "info",
+                  })
+                );
                 dispatch(logout());
               }}
             >

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { create, update } from "../../Store/Posts/ThunkFunctions";
+import { setSnackBarInfo } from "../../Store/SnackBar/SnackBarSlice";
 
 import CustomInput from "./Input";
 import InputSelect from "./InputSelect";
@@ -26,6 +28,7 @@ const PostForm = ({ page, data }) => {
   const sizesList = Object.keys(sizes).map((key) => key);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.auth);
 
@@ -120,21 +123,53 @@ const PostForm = ({ page, data }) => {
     handelError();
 
     if (!error.state && user) {
-      const dataToSend = {
-        ...formValues,
-        user: user.id,
-        id: data._id,
-      };
-
       if (page === "edit") {
+        const dataToSend = {
+          ...formValues,
+          user: user.id,
+          id: data._id,
+        };
         dispatch(update(dataToSend));
+        dispatch(
+          setSnackBarInfo({
+            open: true,
+            message: "Post updated succesfully",
+            state: "success",
+          })
+        );
       } else {
+        const dataToSend = {
+          ...formValues,
+          user: user.id,
+          // id: data._id,
+        };
         dispatch(create(dataToSend));
+        dispatch(
+          setSnackBarInfo({
+            open: true,
+            message: "Post created succesfully",
+            state: "success",
+          })
+        );
       }
+      navigate(-1);
     } else if (!user) {
       console.error("You must be logged in to create a new post");
+      dispatch(
+        setSnackBarInfo({
+          open: true,
+          message: "You must be logged in to create or update a post",
+          state: "error",
+        })
+      );
     } else {
-      console.log("Something went wrong, please try again later.");
+      dispatch(
+        setSnackBarInfo({
+          open: true,
+          message: "Something went wrong, please try again later.",
+          state: "error",
+        })
+      );
     }
   };
 

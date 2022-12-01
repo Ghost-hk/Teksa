@@ -50,3 +50,16 @@ export const deletePost = createAsyncThunk(
     }
   }
 );
+
+export const getPosts = createAsyncThunk(
+  "posts/getPosts",
+  async (pageNum, thunkAPI) => {
+    try {
+      return await postAPI.getPosts(pageNum);
+    } catch (error) {
+      const message = error.response.data || error.toString() || error;
+      console.log(message);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);

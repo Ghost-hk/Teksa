@@ -1,13 +1,18 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { getProfileData } from "../../Store/Auth/ThunkFunctions";
 
-import { Avatar, Box, Paper, Typography } from "@mui/material";
+import { Avatar, Box, Button, Paper, Typography } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 
-const ProfileInfo = () => {
-  const { user, profile } = useSelector((state) => state.auth);
+const ProfileInfo = ({ idFromLink }) => {
+  const { user, userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  console.log(idFromLink, "from profile info component");
 
   useEffect(() => {
     if (user) {
@@ -22,7 +27,6 @@ const ProfileInfo = () => {
     let hash = 0;
     let i;
 
-    /* eslint-disable no-bitwise */
     for (i = 0; i < string.length; i += 1) {
       hash = string.charCodeAt(i) + ((hash << 5) - hash);
     }
@@ -33,7 +37,6 @@ const ProfileInfo = () => {
       const value = (hash >> (i * 8)) & 0xff;
       color += `00${value.toString(16)}`.slice(-2);
     }
-    /* eslint-enable no-bitwise */
 
     return color;
   }
@@ -70,7 +73,7 @@ const ProfileInfo = () => {
           p: 2,
         }}
       >
-        {profile && (
+        {userInfo && (
           <>
             <Box
               sx={{
@@ -81,8 +84,8 @@ const ProfileInfo = () => {
                 mb: 2,
               }}
             >
-              {profile.photo ? (
-                <Avatar src={profile.photo} alt={name} />
+              {userInfo.photo ? (
+                <Avatar src={userInfo.photo} alt={name} />
               ) : (
                 <Avatar {...stringAvatar(name, "52px")} />
               )}
@@ -107,7 +110,7 @@ const ProfileInfo = () => {
                 Location
               </Typography>
               <Typography color='text.main' fontSize='1.2rem' fontWeight='500'>
-                {profile.city || "-"}
+                {userInfo.location || "-"}
               </Typography>
             </Box>
             <Box
@@ -122,7 +125,7 @@ const ProfileInfo = () => {
                 Phone
               </Typography>
               <Typography color='text.main' fontSize='1.2rem' fontWeight='500'>
-                {profile.phone || "-"}
+                {userInfo.phone || "-"}
               </Typography>
             </Box>
             <Box
@@ -137,7 +140,7 @@ const ProfileInfo = () => {
                 Email
               </Typography>
               <Typography color='text.main' fontSize='1.2rem' fontWeight='500'>
-                {profile.email || "-"}
+                {userInfo.email || "-"}
               </Typography>
             </Box>
             <Box
@@ -152,7 +155,7 @@ const ProfileInfo = () => {
                 Facebook
               </Typography>
               <Typography color='text.main' fontSize='1.2rem' fontWeight='500'>
-                {profile.facebook || "-"}
+                {userInfo.socialMedia.facebook || "-"}
               </Typography>
             </Box>
             <Box
@@ -167,11 +170,19 @@ const ProfileInfo = () => {
                 Instagrame
               </Typography>
               <Typography color='text.main' fontSize='1.2rem' fontWeight='500'>
-                {profile.instagrame || "-"}
+                {userInfo.socialMedia.instagram || "-"}
               </Typography>
             </Box>
           </>
         )}
+        <Box sx={{ display: "flex", width: "100%", justifyContent: "end" }}>
+          <Button
+            onClick={() => navigate(`/profile/edit/${user.id}`)}
+            endIcon={<EditIcon />}
+          >
+            Edit
+          </Button>
+        </Box>
       </Paper>
     </Box>
   );

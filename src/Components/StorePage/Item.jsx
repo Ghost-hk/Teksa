@@ -15,7 +15,7 @@ const Item = ({ item }) => {
               justifyContent: "space-between",
             }}
           >
-            <Text>{item.name}</Text>
+            <Text>{item.titel}</Text>
             <Text>{item.price} mad</Text>
           </Box>
           <Text>Size: {item.size}</Text>

@@ -35,3 +35,29 @@ export const getProfileData = createAsyncThunk(
     }
   }
 );
+
+export const getUserInfo = createAsyncThunk(
+  "auth/userInfo",
+  async (userId, thunkAPI) => {
+    try {
+      return await authAPI.getUserInfo(userId);
+    } catch (error) {
+      const message = error.response.data || error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const updateUser = createAsyncThunk(
+  "auth/updateUser",
+  async (userData, thunkAPI) => {
+    try {
+      return await authAPI.updateUser(userData);
+    } catch (error) {
+      const message = error.response.data || error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);

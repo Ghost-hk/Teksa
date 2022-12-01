@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/posts";
+const API_URL = "https://teksa-api.onrender.com/api/posts";
 
 const create = async (postDATA) => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -61,11 +61,30 @@ const deletePost = async (id) => {
   }
 };
 
+const getPosts = async (pageNum) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user.token || "";
+
+  try {
+    const response = await axios.get(`${API_URL}/page?page=${pageNum}`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const postsAPI = {
   create,
   filter,
   deletePost,
   update,
+  getPosts,
 };
 
 export default postsAPI;

@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { create, filter, deletePost, update } from "./ThunkFunctions";
+import { create, filter, deletePost, update, getPosts } from "./ThunkFunctions";
 
 const initialState = {
   createdPost: "",
   filtredPosts: [],
+  posts: null,
   isSuccsess: false,
   isLoading: false,
   isError: false,
@@ -77,6 +78,22 @@ export const postSlice = createSlice({
       .addCase(deletePost.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.isError = true;
+        state.message = payload || "";
+      });
+
+    builder
+      .addCase(getPosts.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getPosts.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.isSuccsess = true;
+        state.posts = payload;
+      })
+      .addCase(getPosts.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.posts = [];
         state.message = payload || "";
       });
   },

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
+import { setSnackBarInfo } from "../../Store/SnackBar/SnackBarSlice";
 import { reset } from "../../Store/Auth/authSlice";
 import { register } from "../../Store/Auth/ThunkFunctions";
 
@@ -103,6 +104,13 @@ const SingUpForm = ({ setIsSingIn }) => {
 
     try {
       dispatch(register(userData));
+      dispatch(
+        setSnackBarInfo({
+          open: true,
+          message: `Welcome to Teksa dear ${formValues.lastName}`,
+          state: "info",
+        })
+      );
     } catch (e) {
       return e;
     }
@@ -220,6 +228,7 @@ const SingUpForm = ({ setIsSingIn }) => {
           <Typography color='text.light'>Or</Typography>
         </Divider>
         <Button
+          disabled
           variant='contained'
           startIcon={<GoogleIcon />}
           sx={{ color: "#ffffff" }}

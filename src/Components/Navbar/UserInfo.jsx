@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { setSnackBarInfo } from "../../Store/SnackBar/SnackBarSlice";
 
 import { logout } from "../../Store/Auth/authSlice";
 
@@ -62,6 +63,14 @@ const UserInfo = ({ user }) => {
 
   const logoutHandler = () => {
     dispatch(logout());
+    dispatch(
+      setSnackBarInfo({
+        open: true,
+        message: "Logged out, see you soon.",
+        state: "info",
+      })
+    );
+    navigate("/");
   };
   const name =
     user.firstName.charAt(0).toUpperCase() +
@@ -134,7 +143,7 @@ const UserInfo = ({ user }) => {
       >
         <MenuItem
           onClick={() => {
-            navigate("/profile");
+            navigate(`/profile/info/${user.id}`);
           }}
         >
           <ListItemIcon>
@@ -151,7 +160,7 @@ const UserInfo = ({ user }) => {
         <Divider />
         <MenuItem
           onClick={() => {
-            navigate("/addpost");
+            navigate("/post/addpost");
           }}
         >
           <ListItemIcon>

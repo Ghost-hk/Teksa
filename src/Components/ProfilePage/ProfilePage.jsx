@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 
 import { Box } from "@mui/material";
 
@@ -10,6 +11,9 @@ import { useMediaQuery } from "@mui/material";
 const ProfilePage = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("lg")); // returns true if on mobile/tablet and false on desktop
+
+  const { id } = useParams();
+  console.log(id, "from profile page component");
 
   return (
     <Box
@@ -34,7 +38,7 @@ const ProfilePage = () => {
             justifyContent: "space-between",
           }}
         >
-          <ProfileInfo />
+          <ProfileInfo idFromLink={id} />
           <ProfilePosts />
         </Box>
       )}
