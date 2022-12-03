@@ -11,6 +11,7 @@ import AddPost from "./Components/AddPostPage/AddPost";
 import EditPost from "./Components/EditPostPage/EditPost";
 import ProfileForm from "./Components/Forms/ProfileForm";
 import SnackBar from "./Components/Snackbar/SnackBar";
+import Footer from "./Components/Footer";
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
           {/* </Route> */}
         </Route>
       </Routes>
+      <Footer />
     </>
   );
 };
