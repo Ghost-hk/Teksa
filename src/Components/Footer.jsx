@@ -12,9 +12,6 @@ const Footer = () => {
         display: "flex",
         justifyContent: "space-between",
         bgcolor: "#333333",
-        position: "fixed",
-        left: 0,
-        bottom: 0,
       }}
     >
       <Typography color='#fffff2'>

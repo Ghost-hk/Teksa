@@ -7,13 +7,15 @@ import {
   Collapse,
   TextField,
   InputAdornment,
+  Box,
 } from "@mui/material";
 
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 
 import { Menu, Search } from "@mui/icons-material";
-import { NavbarContainer, Logo } from "../../Styles/Navbar/Navbar.styles";
+import { NavbarContainer } from "../../Styles/Navbar/Navbar.styles";
+import LogoImg from "../../Images/logo.jpeg";
 
 import NavbarMobileDrawer from "./NavbarMobileDrawer";
 
@@ -50,14 +52,31 @@ const NavbarMobile = () => {
           <Menu />
         </IconButton>
 
-        <Logo
+        {/* <Logo
           textAlign='center'
           onClick={() => {
             navigate("/");
           }}
         >
           Teksa
-        </Logo>
+        </Logo> */}
+        <Box sx={{ flexGrow: 1 }}>
+          <Box
+            onClick={() => {
+              navigate("/");
+            }}
+            sx={{
+              width: "120px",
+              height: "55px",
+              background: `url(${LogoImg})`,
+              backgroundSize: "200%",
+              backgroundPosition: "center ",
+              cursor: "pointer",
+              mx: "auto",
+              // mr: 4,
+            }}
+          ></Box>
+        </Box>
         <IconButton onClick={handleClick}>
           {!open ? <Search /> : <CloseIcon />}
         </IconButton>
